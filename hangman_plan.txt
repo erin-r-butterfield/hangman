@@ -1,0 +1,27 @@
+# Opening
+ - splashback
+    - button to begin game
+    - title
+    - hangman image
+
+# On start
+ - Hide hangman image
+ - Computer choose word
+ - Draw lines for letters in word
+ - Show letter options
+
+# On guess
+ - Determine what letter was pressed
+ - Determine if been used before
+ - Disable letter from letter options
+ - Determine if letter is in word
+
+# If correct
+ - Reveal letter in word above lines
+
+# If incorrect
+ - Reveal next body part
+
+# On game over
+ - Alert saying game over your word was ....
+ - Show play again button
