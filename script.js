@@ -62,10 +62,10 @@ function matchall(x){
 }
 
 function update_string(str,index,chr){
-    // from https://stackoverflow.com/questions/1431094/how-do-i-replace-a-character-at-a-particular-index-in-javascript
+    // adapted from https://stackoverflow.com/questions/1431094/how-do-i-replace-a-character-at-a-particular-index-in-javascript
     // if(index > str.length-1) return str;
     console.log(index)
-    return str.substring(0,index) + chr + str.substring(index+1);
+    return str.substring(0,(index*2)) + chr + str.substring((index*2)+1);
 }
 
 function correct(x){
