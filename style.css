@@ -20,6 +20,11 @@ h1 {
     font-family: 'Chalkduster';
 }
 
+h2 {
+    color: white;
+    font-family: 'Chalkduster';
+}
+
 #name {
     font-size: 20vh;
     padding-left: 30px; 
@@ -47,4 +52,18 @@ button {
     padding-left: 30px;
     margin-top: 15vh;
     margin-bottom: 15vh;
+}
+
+/* #shown_word {
+    width: 50vw;
+} */
+
+/* #hangman {
+    margin-left: 60vh;
+} */
+
+#available {
+    width: 30vw;
+    float: right;
+    /* margin-right: 10px; */
 }

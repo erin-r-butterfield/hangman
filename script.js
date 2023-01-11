@@ -15,16 +15,20 @@ hangman[8] = document.getElementById("leg_1");
 hangman[9] = document.getElementById("leg_2");
 hangman[10] = document.getElementById("face");
 
-var mywords = ["phylogenetics", "matrix", "cluster", "bayesian", "bioinformatics"];
+// var mywords = ["phylogenetics", "matrix", "cluster", "bayesian", "bioinformatics"];
 var current_word = mywords[(Math.floor(Math.random() * mywords.length))];
+current_word = current_word.toLowerCase();
 var display_word = "";
 var attempts = 0;
-var available = document.getElementById("letters")
+var available = document.getElementById("letters");
 var letters = ["A" ,"B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
 for (let i = 0; i < current_word.length; i++){
     display_word += "_ ";
 }
+
+// letters.style.display = 'none';
+document.getElementById("available").style.display = 'none';
 
 var word = document.getElementById("word");
 
@@ -35,21 +39,32 @@ function game_start(event){
     });
     shown_word.style.display = 'block';
     word.innerHTML = display_word;
-    available.innerHTML = letters;
+    // letters.style.display = 'block';
+    document.getElementById("available").style.display = 'block';
+    available.innerHTML = letters.join(" ");
+    console.log(letters.join(" "));
     document.addEventListener('keypress', guess);
     }
 
 function guess(event){
     console.log(event.key);
-    if (current_word.includes(event.key)){
-        display_word = correct(event.key)
+    var x = event.key;
+    x = x.toLowerCase();
+    var z = check_letters(x, letters);
+    if (z > -1) { // only splice array when item is found
+        // https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
+        letters.splice(z, 1); // 2nd parameter means remove one item only
+      } 
+    available.innerHTML = letters.join(" ");
+    if (current_word.includes(x)){
+        display_word = correct(x)
         console.log('yay you guessed correctly');
         word.innerHTML = display_word;
         if (display_word.replace(/\s/g, '') == current_word){
             YouWin()
         }
     } else if (attempts < (hangman.length - 1)){
-        console.log('you suck, '+event.key+' is not in '+current_word);
+        console.log('you suck, '+x+' is not in '+current_word);
         hangman[attempts].style.display = 'block';
         console.log('attempt number '+attempts);
         attempts++;
@@ -64,10 +79,11 @@ function guess(event){
 
 function matchall(x){
     var matches = []
+    
     for (let i = 0; i < current_word.length; i++){
         if (current_word[i] == x) {
             console.log("hooray, I worked")
-            console.log(current_word[i]+' matches '+x.toLowerCase());
+            console.log(current_word[i]+' matches '+x);
             matches.push(i)
             console.log("matches = " +matches)
         } else {
@@ -89,7 +105,8 @@ function correct(x){
     for (let i = 0; i < matches.length; i++){
         console.log("i= " +i)
         console.log("matches[i] = " + matches[i])
-        display_word = update_string(display_word, matches[i], x)
+        z = x.toUpperCase()
+        display_word = update_string(display_word, matches[i], z)
     }
     return display_word
 }
@@ -110,6 +127,14 @@ function YouWin(){
     }, 500)
 }
 
+function check_letters(x, array){
+    var z = x.toUpperCase();
+    if (array.includes(z)){
+        console.log("Is my if statement checking index working?")
+        let index = array.indexOf(z);
+        return index
+    }
+}
 // TODO:
 // 1. Show available letters
 // 2. Expand available words
@@ -117,3 +142,4 @@ function YouWin(){
 // 4. Sanitise inputs so only legit characters allowed?
 // 5. Allow repeat attempts of the same letter?
 // 6. Document code
+// 7. Styling
