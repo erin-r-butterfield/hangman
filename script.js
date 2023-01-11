@@ -15,9 +15,8 @@ hangman[8] = document.getElementById("leg_1");
 hangman[9] = document.getElementById("leg_2");
 hangman[10] = document.getElementById("face");
 
-// var mywords = ["phylogenetics", "matrix", "cluster", "bayesian", "bioinformatics"];
+
 var current_word = mywords[(Math.floor(Math.random() * mywords.length))];
-current_word = current_word.toLowerCase();
 var display_word = "";
 var attempts = 0;
 var available = document.getElementById("letters");
@@ -27,9 +26,8 @@ for (let i = 0; i < current_word.length; i++){
     display_word += "_ ";
 }
 
-// letters.style.display = 'none';
-document.getElementById("available").style.display = 'none';
 
+document.getElementById("available").style.display = 'none';
 var word = document.getElementById("word");
 
 function game_start(event){
@@ -39,17 +37,16 @@ function game_start(event){
     });
     shown_word.style.display = 'block';
     word.innerHTML = display_word;
-    // letters.style.display = 'block';
     document.getElementById("available").style.display = 'block';
     available.innerHTML = letters.join(" ");
-    console.log(letters.join(" "));
+    // console.log(letters.join(" "));
     document.addEventListener('keypress', guess);
     }
 
 function guess(event){
-    console.log(event.key);
+    // console.log(event.key);
     var x = event.key;
-    x = x.toLowerCase();
+    x = x.toUpperCase();
     var z = check_letters(x, letters);
     if (z > -1) { // only splice array when item is found
         // https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
@@ -58,19 +55,20 @@ function guess(event){
     available.innerHTML = letters.join(" ");
     if (current_word.includes(x)){
         display_word = correct(x)
-        console.log('yay you guessed correctly');
+        // console.log('yay you guessed correctly');
         word.innerHTML = display_word;
+        // upper = current_word.toUpperCase()
         if (display_word.replace(/\s/g, '') == current_word){
             YouWin()
         }
     } else if (attempts < (hangman.length - 1)){
-        console.log('you suck, '+x+' is not in '+current_word);
+        // console.log('you suck, '+x+' is not in '+current_word);
         hangman[attempts].style.display = 'block';
-        console.log('attempt number '+attempts);
+        // console.log('attempt number '+attempts);
         attempts++;
-        console.log('now at '+attempts);
+        // console.log('now at '+attempts);
     } else {
-        console.log("YOU REALLY SUCK, GAME OVER")
+        // console.log("YOU REALLY SUCK, GAME OVER")
         hangman[attempts].style.display = 'block';
         GameOver()
     }
@@ -82,31 +80,28 @@ function matchall(x){
     
     for (let i = 0; i < current_word.length; i++){
         if (current_word[i] == x) {
-            console.log("hooray, I worked")
-            console.log(current_word[i]+' matches '+x);
+            // console.log("hooray, I worked")
+            // console.log(current_word[i]+' matches '+x);
             matches.push(i)
-            console.log("matches = " +matches)
-        } else {
-            console.log("my if statement didn't work :(")
-        }
+            // console.log("matches = " +matches)
+        } 
     }
     return matches;
 }
 
 function update_string(str,index,chr){
     // adapted from https://stackoverflow.com/questions/1431094/how-do-i-replace-a-character-at-a-particular-index-in-javascript
-    console.log(index)
+    // console.log(index)
     return str.substring(0,(index*2)) + chr + str.substring((index*2)+1);
 }
 
 function correct(x){
     var matches = matchall(x)
-    console.log("matches= " + matches)
+    // console.log("matches= " + matches)
     for (let i = 0; i < matches.length; i++){
-        console.log("i= " +i)
-        console.log("matches[i] = " + matches[i])
-        z = x.toUpperCase()
-        display_word = update_string(display_word, matches[i], z)
+        // console.log("i= " +i)
+        // console.log("matches[i] = " + matches[i])
+        display_word = update_string(display_word, matches[i], x)
     }
     return display_word
 }
@@ -130,7 +125,7 @@ function YouWin(){
 function check_letters(x, array){
     var z = x.toUpperCase();
     if (array.includes(z)){
-        console.log("Is my if statement checking index working?")
+        // console.log("Is my if statement checking index working?")
         let index = array.indexOf(z);
         return index
     }
