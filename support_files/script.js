@@ -16,7 +16,7 @@ hangman[9] = document.getElementById("leg_2");
 hangman[10] = document.getElementById("face");
 
 
-var current_word = mywords[(Math.floor(Math.random() * mywords.length))];
+var current_word = mywords[(Math.floor(Math.random() * mywords.length))].toUpperCase();
 var display_word = "";
 var attempts = 0;
 var available = document.getElementById("letters");
@@ -117,7 +117,7 @@ function GameOver(){
 function YouWin(){
     setTimeout(function(){
         if(confirm("CONGRATULATIONS - You Win\n\nClick OK to play again.")==true){
-            location.reload();
+        location.reload();
         }
     }, 500)
 }
